@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Playfair Display", serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-script: "Pinyon Script", cursive;
+  --font-signature: "Allura", cursive;
+  --font-sans: "Inter", sans-serif;
+
+  --color-cream: #f7f1e6;
+  --color-cream-dark: #ecdfc7;
+  --color-ink: #1a1512;
+  --color-ink-soft: #2b241f;
+  --color-gold: #c8a25b;
+  --color-gold-dark: #a07f3c;
+  --color-wine: #6b2c39;
+  --color-highlight: #e9c46a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-serif);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Calligraphic highlight underline */
+.brush-underline {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 20' preserveAspectRatio='none'><path d='M5 12 C 60 4, 120 16, 180 10 S 280 6, 295 10' stroke='%23c8a25b' stroke-width='6' fill='none' stroke-linecap='round' opacity='0.85'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  background-size: 100% 35%;
+  padding: 0 0.1em;
+}
+
+.brush-highlight {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+.brush-highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0 -0.1em;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 80' preserveAspectRatio='none'><path d='M10 55 C 80 30, 160 70, 240 45 S 380 40, 395 50 L 390 62 C 320 72, 220 55, 140 70 S 20 65, 8 60 Z' fill='%23e9c46a' opacity='0.55'/></svg>") no-repeat center / 100% 100%;
+  z-index: -1;
+  transform: translateY(5%);
+}
+
+/* Grain / paper texture overlay */
+.paper-texture {
+  background-image:
+    radial-gradient(rgba(26, 21, 18, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(26, 21, 18, 0.04) 1px, transparent 1px);
+  background-size: 3px 3px, 7px 7px;
+  background-position: 0 0, 1px 2px;
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Gentle float */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
+}
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Ink fade in */
+@keyframes ink-fade {
+  from { opacity: 0; filter: blur(8px); transform: translateY(12px); }
+  to   { opacity: 1; filter: blur(0);   transform: translateY(0); }
+}
+.animate-ink-fade {
+  animation: ink-fade 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Fancy divider */
+.ornate-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-gold-dark);
+}
+.ornate-divider::before,
+.ornate-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-dark), transparent);
+}
+
+/* Typewriter Cursor Animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 300;
+  color: var(--color-gold);
+  animation: blink 1s step-end infinite;
+}
+.typewriter-text {
+  min-height: 1.5em; /* Prevent layout shift while typing */
+  display: inline-block;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-gold-dark); border-radius: 10px; }
